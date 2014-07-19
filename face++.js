@@ -1,7 +1,9 @@
 var http = require('https');
 var keys = require('./config.js');
 
-module.exports.facefind = function(returnit){
+module.exports.facefind = function(returnit, img){
+
+   //path: '/v2/detection/detect?api_key='+keys.api_key+'&api_secret='+keys.api_secret+'&url='+picURL+'&attribute=age%2Cgender%2Crace%2Csmiling%2Cpose%2Cglass'path: '/v2/detection/detect?api_key='+keys.api_key+'&api_secret='+keys.api_secret+'&url='+picURL+'&attribute=age%2Cgender%2Crace%2Csmiling%2Cpose%2Cglass' 
 
     var picURL = "https://scontent-a.xx.fbcdn.net/hphotos-xfa1/t1.0-9/p480x480/10494650_10203694011051443_1904878853767976155_n.jpg"
     var attribute = "glass,pose,gender,age,race,smiling"
@@ -9,7 +11,12 @@ module.exports.facefind = function(returnit){
 
     var options = {
       host: 'apius.faceplusplus.com',
-      path: '/v2/detection/detect?api_key='+keys.api_key+'&api_secret='+keys.api_secret+'&url='+picURL+'&attribute=age%2Cgender%2Crace%2Csmiling%2Cpose%2Cglass'
+      method: 'post',
+      path: '/v2/detection/detect?api_key='+keys.api_key+'&api_secret='+keys.api_secret+'&attribute=age%2Cgender%2Crace%2Csmiling%2Cpose%2Cglass',
+      headers: {
+          'Content-Type': 'image/jpeg',
+          'Content-Length': img.length
+      }
     };
 
 
@@ -26,11 +33,15 @@ callback = function(response) {
         //the whole response has been recieved, so we just print it out here
         response.on('end', function() {
             var data = JSON.parse(str);
-            facecompare(data.face[0].face_id,data.face[1].face_id);
+            console.log(data);
+
+            //facecompare(data.face[0].face_id,data.face[1].face_id);
         });
     }    
 
-    http.request(options, callback).end();
+    var httpvar = http.request(options, callback);
+    httpvar.write(img);
+    httpvar.end();
 }
 
 
@@ -64,6 +75,6 @@ callback = function(response) {
             });
         }    
 
-        http.request(options, callback).end();
+        http.get(options, callback).end();
 
 }
