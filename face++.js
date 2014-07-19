@@ -18,19 +18,20 @@ var options = {
   path: '/v2/detection/detect?api_key='+api_key+'&api_secret='+api_secret+'&url='+picURL+'&attribute=age%2Cgender%2Crace%2Csmiling%2Cpose%2Cglass'
 };
 
-callback = function(response) {
-  var str = '';
 
-  //another chunk of data has been recieved, so append it to `str`
-  response.on('data', function (chunk) {
-    str += chunk;
-  });
+    callback = function(response) {
+        var str = '';
 
-  //the whole response has been recieved, so we just print it out here
-  response.on('end', function () {
-    console.log(str);
-  });
-}
+        //another chunk of data has been recieved, so append it to `str`
+        response.on('data', function(chunk) {
+            str += chunk;
+        });
 
-http.request(options, callback).end();
+        //the whole response has been recieved, so we just print it out here
+        response.on('end', function() {
+            console.log(str);
+        });
+    }
+
+    http.request(options, callback).end();
 }

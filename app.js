@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-    app.use(express.errorHandler());
+  app.use(express.errorHandler());
 }
 
 
@@ -41,11 +41,17 @@ face.face();
 app.get('/', function(req, res){
   res.render('index', { title: 'Express' });
   face.face(API_SECRET,API_KEY);
+=======
+app.get('/', function(req, res) {
+  res.render('index', {
+      title: 'Express'
+  });
+  face.face();
+>>>>>>> 20b726e695f09a6be964d6f5340c6e755c2a8f11
 });
 */
 
 
-
 http.createServer(app).listen(app.get('port'), function() {
-    console.log('Express server listening on port ' + app.get('port'));
+  console.log('Express server listening on port ' + app.get('port'));
 });
