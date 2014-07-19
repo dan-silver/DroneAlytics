@@ -8,6 +8,7 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var face = require('./face++.js');
+var drone = require('./drone.js');
 
 
 var app = express();
