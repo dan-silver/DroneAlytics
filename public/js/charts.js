@@ -4,6 +4,7 @@
     <script type="text/javascript">
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawAgeAndGenderBreakdownChart);
+      google.setOnLoadCallback(drawGenderChart);
       /**
        * @brief Draws age and gender breakdown chart
        * @params: percentages by each age group for males and females
@@ -82,10 +83,33 @@
             }
           }
         );
+          
+      /**
+       * @brief Draws the pie chart by male/female breakdown
+       * @param % of males
+       * @param % of females
+       * @return chart
+       */
+      function drawGenderChart(malePercentage, femalePercentage) {
+        var data = google.visualization.arrayToDataTable([
+          ['Gender', 'Percentage'],
+          ['Male', malePercentage],
+          ['Female', femalePercentage]
+        ]);
+
+        var options = {
+          title: 'Gender Breakdown',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
       }
+
     </script>
   </head>
   <body>
     <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <div id="donutchart" style="width: 900px; height: 500px;"></div>
   </body>
 </html>
