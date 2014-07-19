@@ -7,8 +7,8 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-var face = require('./face++.js');
-//var drone = require('./drone.js');
+var face = require('./face++');
+var drone = require('./drone.js');
 
 
 var app = express();
@@ -25,7 +25,13 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-//drone.startPNGStream()
+drone.startPNGStream(function(img) {
+  face.faceFind(img, function() {
+  	console.log("now update UI")
+  })
+})
+
+
 
 // development only
 if ('development' == app.get('env')) {

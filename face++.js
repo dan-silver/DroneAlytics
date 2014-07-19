@@ -1,7 +1,7 @@
 var http = require('https');
 var keys = require('./config.js');
 
-module.exports.facefind = function(returnit, img){
+module.exports.faceFind = function(img){
 
    //path: '/v2/detection/detect?api_key='+keys.api_key+'&api_secret='+keys.api_secret+'&url='+picURL+'&attribute=age%2Cgender%2Crace%2Csmiling%2Cpose%2Cglass'path: '/v2/detection/detect?api_key='+keys.api_key+'&api_secret='+keys.api_secret+'&url='+picURL+'&attribute=age%2Cgender%2Crace%2Csmiling%2Cpose%2Cglass' 
 
