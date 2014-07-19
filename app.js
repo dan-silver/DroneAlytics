@@ -8,6 +8,7 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var face = require('./face++.js');
+var drone = require('./drone.js');
 
 
 var app = express();
@@ -23,6 +24,8 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+
+drone.startPNGStream()
 
 // development only
 if ('development' == app.get('env')) {
