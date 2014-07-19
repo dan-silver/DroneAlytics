@@ -25,6 +25,8 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+drone.startPNGStream()
+
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
