@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -27,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+    app.use(express.errorHandler());
 }
 
 app.get('/', function(req, res){
@@ -35,6 +34,10 @@ app.get('/', function(req, res){
   face.face();
 });
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+// Face++ API
+var API_KEY = 9d6a99bbb5fe5a0b10d59dc10dbf7b16;
+var API_SECRET = xuv78oYAF - TgYy - tEtjWXIiKtFwlQIrc;
+
+http.createServer(app).listen(app.get('port'), function() {
+    console.log('Express server listening on port ' + app.get('port'));
 });
