@@ -54,7 +54,6 @@ function drawRaceChart() {
 
   raceOptions = {
     pieHole: 0.4,
-    width: 800,
     backgroundColor: { fill:'transparent' },
     height: 500,
     vAxis: {minValue:0, maxValue:1200000},
@@ -96,7 +95,6 @@ function drawGenderChart() {
 
   genderOptions = {
     pieHole: 0.4,
-    width: 800,
     backgroundColor: { fill:'transparent' },
     height: 500,
     vAxis: {minValue:0, maxValue:1200000},
@@ -156,7 +154,7 @@ function drawAgeAndGenderBreakdownChart() {
     hAxis: {
       format: "##;##"
     },
-    width:600, height:400,
+    height:500,
     hAxis: {
       title: "Age"
     },
