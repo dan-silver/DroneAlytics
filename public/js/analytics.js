@@ -1,7 +1,6 @@
 var faces = [];
-var chart, data, options;
-
-
+var genderChart, genderData, genderOptions; 
+var ageAndGenderChart, ageAndGenderData;
 
 function getGenderStats(gender,minAge, maxAge) {
   var numberOf = 0;
@@ -24,7 +23,7 @@ function getGenderStats(gender,minAge, maxAge) {
  * Females are below the x-axis.
  */ 
 function drawAgeAndGenderBreakdownChart(maleGroup1, femaleGroup1, maleGroup2, femaleGroup2, maleGroup3, femaleGroup3, maleGroup4, femaleGroup4, maleGroup5, femaleGroup5, maleGroup6, femaleGroup6, maleGroup7, femaleGroup7) {
-  var data = {
+  ageAndGenderData = {
     "cols":[
       {"id":"Age","label":"Age","type":"string"},
       {"id":"Female","label":"Female","type":"number"},
@@ -75,8 +74,8 @@ function drawAgeAndGenderBreakdownChart(maleGroup1, femaleGroup1, maleGroup2, fe
     ]
   }
     /* Create and draw the visualization. */
-    var chart = new google.visualization.ColumnChart(document.getElementById('visualization'));
-      chart.draw(new google.visualization.DataTable(data), {
+    ageAndGenderChart = new google.visualization.ColumnChart(document.getElementById('visualization'));
+      ageAndGenderChart.draw(new google.visualization.DataTable(ageAndGenderData), {
         title:"Breakdown by Gender and Age Group",
         isStacked: true,
         vAxis: {
@@ -101,13 +100,13 @@ function drawGenderChart(malePercentage, femalePercentage) {
   // malePercentage = malePercentage || 0;
   // femalePercentage = femalePercentage || 0;
 
-  data = google.visualization.arrayToDataTable([
+  genderData = google.visualization.arrayToDataTable([
     ['Gender', 'Percentage'],
     ['Male', malePercentage],
     ['Female', femalePercentage]
   ]);
 
-  options = {
+  genderOptions = {
     title: 'Gender Breakdown',
     pieHole: 0.4,
     animation:{
@@ -116,11 +115,11 @@ function drawGenderChart(malePercentage, femalePercentage) {
     }
   };
 
-  chart = new google.visualization.PieChart(document.getElementById('genderChart'));
-  google.visualization.events.addListener(chart, 'select', function() {
-    var selection = chart.getSelection();
+  genderChart = new google.visualization.PieChart(document.getElementById('genderChart'));
+  google.visualization.events.addListener(genderChart, 'select', function() {
+    var selection = genderChart.getSelection();
   });
-  chart.draw(data, options);
+  genderChart.draw(genderData, genderOptions);
   console.log("drawing chart, first time")
 }
 
@@ -134,10 +133,10 @@ function getAnalytics() {
 }
 
 function updateGenderChart(malePercentage, femalePercentage) {
-  if (data == null) return;
-  data.setValue(0,1,malePercentage)
-  data.setValue(1,1,femalePercentage)
-  chart.draw(data, options)
+  if (genderData == null) return;
+  genderData.setValue(0,1,malePercentage)
+  genderData.setValue(1,1,femalePercentage)
+  genderChart.draw(genderData, genderOptions)
   console.log("updating chart")
 }
 
