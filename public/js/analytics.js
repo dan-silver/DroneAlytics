@@ -1,6 +1,7 @@
 var faces = [];
 var genderChart, genderData, genderOptions; 
 var ageAndGenderChart, ageAndGenderData, ageAndGenderOptions;
+var raceChart, raceData, raceOptions;
 
 var groups = [{minAge:13, maxAge:17}, 
               {minAge:18, maxAge:24},
@@ -11,18 +12,17 @@ var groups = [{minAge:13, maxAge:17},
               {minAge:64, maxAge:130}
             ];
 
-function getGenderStats(gender, minAge, maxAge) {
-  console.log(gender)
+function getGenderStats(gender, minAge, maxAge, race) {
+  //console.log(gender)
   var numberOf = 0;
-    // console.error('MINAGE=', minAge)
 
   var i = 0;
   var j = faces.length
   while(i < j) {
-    console.log(faces)
+    //console.log(faces)
     j = faces.length;
-    console.log(i)
-    console.error(faces[i])
+    //console.log(i)
+    //console.error(faces[i])
     if(minAge != null){
       if(faces[i].attribute.age.value < minAge || faces[i].attribute.age.value > maxAge){
           i++;
@@ -34,19 +34,62 @@ function getGenderStats(gender, minAge, maxAge) {
     }
 
     i++;
-    console.log("J IS " + j)
-    }
+    //console.log("J IS " + j)
+  }
   return numberOf;
 }
 
+function drawRaceChart() {
+  raceData = new google.visualization.DataTable();
+  raceData.addColumn('string', 'Race');
+  raceData.addColumn('number', 'Value');
+
+  // init default values
+  raceData.addRow(['White', 50])
+  raceData.addRow(['Black', 30])
+  raceData.addRow(['Indian', 10])
+  raceData.addRow(['Chinese', 10])
+
+  raceOptions = {
+    pieHole: 0.4,
+    width: 800,
+    backgroundColor: { fill:'transparent' },
+    height: 500,
+    vAxis: {minValue:0, maxValue:1200000},
+    animation:{
+      duration: 1000,
+      easing: 'out',
+    }
+  };
+
+  raceChart = new google.visualization.PieChart(document.getElementById('raceChart'));
+
+  raceChart.draw(raceData, raceOptions);
+
+  google.visualization.events.addListener(raceChart, 'select', function() {
+    var selection = raceChart.getSelection();
+  });
+
+  console.log("drawing race chart, first time")
+  // google.visualization.events.addListener(raceChart, 'select', function() {
+  //   var selection = raceChart.getSelection();
+  //   console.log(selection);
+
+  //   raceChart.draw(raceData, raceOptions);
+  //   console.log("drawing race chart, first time")
+  // });
+}
+
+function updateRaceChart(ageGroup) {
+
+}
 
 function drawGenderChart() {
-  // Default to 0 if undefined
-    genderData = new google.visualization.DataTable();
-    genderData.addColumn('string', 'Gender');
-    genderData.addColumn('number', 'Value');
-    genderData.addRow(['Male', 50]);
-    genderData.addRow(['Female', 50]);
+  genderData = new google.visualization.DataTable();
+  genderData.addColumn('string', 'Race');
+  genderData.addColumn('number', 'Value');
+  genderData.addRow(['Male', 50]);
+  genderData.addRow(['Female', 50]);
 
   genderOptions = {
     pieHole: 0.4,
@@ -65,7 +108,7 @@ function drawGenderChart() {
     var selection = genderChart.getSelection();
   });
   genderChart.draw(genderData, genderOptions);
-  console.log("drawing chart, first time")
+  console.log("drawing gender chart, first time")
 }
 
 function getAnalytics() {
@@ -91,11 +134,6 @@ function updateGenderChart(malePercentage, femalePercentage) {
   // console.log("updating chart")
 }
 
-/**
- * Create and populate the data table.
- * Males are above the x-axis.
- * Females are below the x-axis.
-*/
 function drawAgeAndGenderBreakdownChart() {
   ageAndGenderData = new google.visualization.DataTable();
   ageAndGenderData.addColumn('string', 'age');
@@ -124,6 +162,9 @@ function drawAgeAndGenderBreakdownChart() {
   /* Create and draw the visualization. */
   ageAndGenderChart = new google.visualization.ColumnChart(document.getElementById('visualization'));
   ageAndGenderChart.draw(ageAndGenderData, ageAndGenderOptions);
+  // var ageGroupSelection = ageAndGenderChart.getSelection();
+  // console.log(ageGroupSelection[0]);
+  // drawRaceChart(ageGroupSelection);
 }
 
 function updateAgeAndGenderChart() {
@@ -131,7 +172,6 @@ function updateAgeAndGenderChart() {
     console.error('ageAndGenderData is null')
     return;
   }
-  console.error('UPDATING DA CHART')
 
   for (i = 0; i < groups.length; i++) {
     console.error('UPDATING GROUP ' + i)
@@ -146,10 +186,9 @@ function updateAgeAndGenderChart() {
   ageAndGenderChart.draw(ageAndGenderData, ageAndGenderOptions)
 }
 
-
-
 google.load("visualization", "1", {packages:["corechart"]});
 $(function() {
   google.setOnLoadCallback(drawGenderChart());
   google.setOnLoadCallback(drawAgeAndGenderBreakdownChart());
+  google.setOnLoadCallback(drawRaceChart());
 });
