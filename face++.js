@@ -3,12 +3,7 @@ var http = require('https')
   , request = require("request");
 
 module.exports.faceFind = function(fileName, callback){
-
-   //path: '/v2/detection/detect?api_key='+keys.api_key+'&api_secret='+keys.api_secret+'&url='+picURL+'&attribute=age%2Cgender%2Crace%2Csmiling%2Cpose%2Cglass'path: '/v2/detection/detect?api_key='+keys.api_key+'&api_secret='+keys.api_secret+'&url='+picURL+'&attribute=age%2Cgender%2Crace%2Csmiling%2Cpose%2Cglass' 
-
-  var picURL = "https://scontent-a.xx.fbcdn.net/hphotos-xfa1/t1.0-9/p480x480/10494650_10203694011051443_1904878853767976155_n.jpg"
-  var attribute = "glass,pose,gender,age,race,smiling"
-
+  
   var exec = require('child_process').exec,
       child;
   console.log('fileName=',fileName)
@@ -34,7 +29,7 @@ module.exports.faceFind = function(fileName, callback){
 }
 
 
-facecompare = function(face_id1,face_id2){
+module.exports.facecompare = function(face_id1,face_id2,returnstuff){
 
   /*
   var face_id2 = "2a207e2d79a9746c4a5f6d55fa3e9724"
@@ -56,11 +51,17 @@ facecompare = function(face_id1,face_id2){
 
         //the whole response has been recieved, so we just print it out here
         response.on('end', function() {
-
-            console.log(str);
+            var data = JSON.parse(str);
+            if(data.similarity >= 65){
+                returnstuff(1);
+            }
+            else returnstuff(0);
+                    
         });
     }    
 
     http.get(options, callback).end();
 
 }
+
+
