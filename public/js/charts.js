@@ -2,6 +2,8 @@
   <head>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
+      var google = {};
+      // google.visualization = {};
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawAgeAndGenderBreakdownChart);
       google.setOnLoadCallback(drawGenderChart);
@@ -11,7 +13,11 @@
        * @return chart
        */
       function drawAgeAndGenderBreakdownChart(maleGroup1, femaleGroup1, maleGroup2, femaleGroup2, maleGroup3, femaleGroup3, maleGroup4, femaleGroup4, maleGroup5, femaleGroup5, maleGroup6, femaleGroup6, maleGroup7, femaleGroup7) {
-        /* Create and populate the data table. */
+        /**
+         * Create and populate the data table.
+         * Males are above the x-axis.
+         * Females are below the x-axis.
+         */
         var data = {
           "cols":[
             {"id":"Age","label":"Age","type":"string"},
@@ -64,8 +70,8 @@
         };
 
         /* Create and draw the visualization. */
-        new google.visualization.ColumnChart(document.getElementById('visualization'))
-          .draw(new google.visualization.DataTable(data), {
+        var chart = new google.visualization.ColumnChart(document.getElementById('visualization'));
+          chart.draw(new google.visualization.DataTable(data), {
             title:"Breakdown by Gender and Age Group",
             isStacked: true,
             vAxis: {
@@ -83,6 +89,16 @@
             }
           }
         );
+
+        google.visualization.events.addListener(chart, 'select', function() {
+          var selection = chart.getSelection();
+          if (selection.length) {
+            // Draw race chart if clicked inside a particular age group
+            
+          }
+
+        });
+      }
           
       /**
        * @brief Draws the pie chart by male/female breakdown
@@ -109,6 +125,9 @@
     </script>
   </head>
   <body>
+    <h1>
+      <p>DroneStalk Data Visualization Results</p>
+    </h1>
     <div id="piechart" style="width: 900px; height: 500px;"></div>
     <div id="donutchart" style="width: 900px; height: 500px;"></div>
   </body>
