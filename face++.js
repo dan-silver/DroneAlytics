@@ -3,12 +3,7 @@ var http = require('https')
   , request = require("request");
 
 module.exports.faceFind = function(fileName, callback){
-
-   //path: '/v2/detection/detect?api_key='+keys.api_key+'&api_secret='+keys.api_secret+'&url='+picURL+'&attribute=age%2Cgender%2Crace%2Csmiling%2Cpose%2Cglass'path: '/v2/detection/detect?api_key='+keys.api_key+'&api_secret='+keys.api_secret+'&url='+picURL+'&attribute=age%2Cgender%2Crace%2Csmiling%2Cpose%2Cglass' 
-
-  var picURL = "https://scontent-a.xx.fbcdn.net/hphotos-xfa1/t1.0-9/p480x480/10494650_10203694011051443_1904878853767976155_n.jpg"
-  var attribute = "glass,pose,gender,age,race,smiling"
-
+  
   var exec = require('child_process').exec,
       child;
 

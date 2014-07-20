@@ -2,6 +2,9 @@ doctype html
 html
   head
     title= title
+    script(src='http://code.jquery.com/jquery-1.11.0.min.js')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="/socket.io/socket.io.js")
+    script(src="/js/sockets.js")
   body
     block content
