@@ -20,6 +20,21 @@ header{
 box-shadow: 10px 10px 100px -20px rgba(0,0,0,0.75);
 }
 
+.drone_pic{
+	background-image: url('/img/dpic.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	width: 200px;
+	height: 150px;
+	margin-top: 150px;
+}
+
+#genderChart{
+	position: relative;
+	top: -43px;
+}
+
 .head{
 	position: absolute;
 	top: 1px;
@@ -27,8 +42,18 @@ box-shadow: 10px 10px 100px -20px rgba(0,0,0,0.75);
 
 	font-family: 'Amaranth', serif;
 	font-weight: bold;
-	
+
 }
+
+
+/*.wrap-left{
+	float: left;
+}
+
+.wrap-right{
+	float: right;
+}*/
+
 
 
 .icon{

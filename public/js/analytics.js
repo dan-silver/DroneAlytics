@@ -106,7 +106,6 @@ function drawAgeAndGenderBreakdownChart() {
     ageAndGenderData.addRow([groups[i].minAge + " - " + groups[i].maxAge, -5, 5]);
   }
   ageAndGenderOptions = {
-    title:"Breakdown by Gender and Age Group",
     isStacked: true,
     vAxis: {
       format: "##;##"

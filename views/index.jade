@@ -4,12 +4,14 @@ block content
 
   .container-title
     h1=title
-  .container
-    #wrap
+  .container-fluid
       .row
-        .col-md-4
-          h1 Gender Ratio
-          div#genderChart
-        .col-md-4
-          div#visualization
+          .col-md-5
+            h1.text-center Gender Ratio
+            div#genderChart
+          .col-md-2
+            div.drone_pic
+          .col-md-5
+            h1 Age and Gender Distribution
+            div#visualization
 
