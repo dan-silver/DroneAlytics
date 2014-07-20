@@ -14,7 +14,6 @@ var groups = [{minAge:13, maxAge:17},
 function getGenderStats(gender, minAge, maxAge) {
   console.log(gender)
   var numberOf = 0;
-    // console.error('MINAGE=', minAge)
 
   var i = 0;
   var j = faces.length
@@ -132,7 +131,6 @@ function updateAgeAndGenderChart() {
     console.error('ageAndGenderData is null')
     return;
   }
-  console.error('UPDATING DA CHART')
 
   for (i = 0; i < groups.length; i++) {
     console.error('UPDATING GROUP ' + i)
