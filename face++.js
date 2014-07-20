@@ -11,6 +11,8 @@ module.exports.faceFind = function(fileName, callback){
   child = exec('curl -i -F api_key=5dbb712f5a8a4787da2ab34058b98876 -F api_secret=cV-5DUanQmpt2EHIcUozVRfHXVTLlFzN -F attribute=age,gender,race -F img=@'+fileName+' http://apius.faceplusplus.com/v2/detection/detect',
     function (error, stdout, stderr) {
       // console.log(stdout)
+      // console.log(stderr)
+      // console.log(error)
       curlRes = stdout
       curlRes = curlRes.split("\n")
       curlRes.splice(0,10)
@@ -19,7 +21,7 @@ module.exports.faceFind = function(fileName, callback){
       if (stderr) console.log('stderr: ' + stderr);
       if (error !== null) {
         console.log('exec error: ' + error);
-      } else if (resultObject != null) {
+      } else if (resultObject != null && (Object.getPrototypeOf(resultObject) === Object.prototype || Object.getPrototypeOf(resultObject) === Array.prototype)) {
         callback(resultObject)
       }
   });

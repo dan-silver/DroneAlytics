@@ -34,8 +34,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 // })
 
 var processImage = function(results) {
-  faces = faces.concat(results.face);
-  io.sockets.emit('add faces', faces);
+	if (results != null && results.face != null) {
+		// console.log("results ARRAY", results.face)
+		for (var i=0;i<results.face.length;i++) {
+			// console.log("one face", face);
+			if (results.face[i] != null) {
+				faces.push(results.face[i])
+			}		
+		}
+	}
+  console.log("BBB", faces)
+  io.sockets.emit('init faces', results.face);
 } 
 
 var faces = [];
@@ -62,11 +71,12 @@ app.get('/',function(req, res){
 
 
 io.sockets.on('connection', function(socket){
+  // console.log("AAA", faces)
   socket.emit('init faces',faces);
 });
 
 setInterval(function() {
-  samples = ["sample.jpg","sample_2.jpg","sample_3.jpg"]
+  samples = ["sample_3.jpg"]
   face.faceFind(samples[Math.floor(Math.random()*samples.length)], processImage)
 },1000)
 

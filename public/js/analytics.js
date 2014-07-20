@@ -68,7 +68,7 @@ function updateAgeAndGenderChart() {
     console.error('ageAndGenderData is null')
     return;
   }
-  console.error('UPDATING DA CHART')
+  console.error('UPDATING DA CHART', charts.length)
 
   for (i = 0; i < groups.length; i++) {
     console.error('UPDATING GROUP ' + i)
