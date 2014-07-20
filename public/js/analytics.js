@@ -42,6 +42,7 @@ function getGenderStats(gender, minAge, maxAge, race) {
 function drawRaceChart() {
   raceData = new google.visualization.DataTable();
   raceData.addColumn('string', 'Race');
+  raceData.addColumn('number', 'Value');
 
   // init default values
   raceData.addRow(['White', 50])
