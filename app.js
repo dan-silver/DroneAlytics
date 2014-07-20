@@ -9,7 +9,6 @@ var http = require('http');
 var path = require('path');
 var face = require('./face++');
 var drone = require('./drone.js');
-var theSocket;
 
 var app = express();
 
@@ -35,9 +34,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // })
 
 var processImage = function(results) {
-  if (!theSocket) return
   faces = faces.concat(results.face);
-  theSocket.emit('add faces', faces);
+  io.sockets.emit('add faces', faces);
   console.log("New face added!\ngender: "+results.face[0].attribute.gender.value)
 
   // console.log("result=",results)
@@ -67,11 +65,8 @@ app.get('/',function(req, res){
 
 
 io.sockets.on('connection', function(socket){
-  if (!theSocket) theSocket = socket
   socket.emit('init faces',faces);
 });
-
-
 
 setInterval(function() {
   samples = ["sample_3.jpg"]
