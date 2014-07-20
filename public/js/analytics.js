@@ -1,25 +1,21 @@
 var faces = [];
 var chart, data, options;
 
-function getMales() {
-  var numberOfMales = 0;
-  for (i = 0; i < faces.length; i++) {
-    if (faces[i].attribute.gender.value === 'Male') {
-      numberOfMales++;
-    }
-  }
-  return numberOfMales;
-}
 
-function getFemales(minAge, maxAge) {
-  var numberOfFemales = 0;
+
+function getGenderStats(gender,minAge, maxAge) {
+  var numberOf = 0;
   for (i = 0; i < faces.length; i++) {
-    //check for ages, if defined
-    if (faces[i].attribute.gender.value === 'Female') {
-      numberOfFemales++;
+    if(minAge != null){
+      if(faces[i].attribute.age.value <= minAge || faces[i].attribute.age.value >= maxAge){
+          break;
+      }
+    }
+    if (faces[i].attribute.gender.value === gender) {
+      numberOf++;
     }
   }
-  return numberOfFemales;
+  return numberOf;
 }
 
 function drawGenderChart(malePercentage, femalePercentage) {
@@ -52,8 +48,8 @@ function drawGenderChart(malePercentage, femalePercentage) {
 
 function getAnalytics() {
   console.log("getAnalytics")
-  var numberOfMales = getMales(faces);
-  var numberOfFemales = getFemales(faces);
+  var numberOfMales = getGenderStats("Male");
+  var numberOfFemales = getGenderStats("Female");
   var malePercentage = numberOfMales / faces.length;
   var femalePercentage = numberOfFemales / faces.length;
   updateGenderChart(malePercentage, femalePercentage);
