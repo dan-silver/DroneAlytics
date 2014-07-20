@@ -24,9 +24,11 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+
+var dublicateFaces = [];
+var faces = [];
+
 a=true
-
-
 drone.startPNGStream(function(fileName) {
   if (a==true) {
     a=false
