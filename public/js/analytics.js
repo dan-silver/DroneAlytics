@@ -1,6 +1,6 @@
 var faces = [];
 var genderChart, genderData, genderOptions; 
-var ageAndGenderChart, ageAndGenderData;
+var ageAndGenderChart, ageAndGenderData, ageAndGenderOptions;
 
 var groups = [{minAge:13, maxAge:17}, 
               {minAge:18, maxAge:24},
@@ -41,12 +41,9 @@ function drawAgeAndGenderBreakdownChart() {
       // Get % of males and females in group
       var numberOfMales = getGenderStats('Male', groups[i].minAge, groups[i].maxAge);
       var numberOfFemales = getGenderStats('Female', groups[i].minAge, groups[i].maxAge);
-      ageAndGenderData.addRow(numberOfMales / (numberOfMales + numberOfFemales));
+      ageAndGenderData.addRow([groups[i].minAge + "-" + groups[i].maxAge, numberOfFemales, numberOfMales]);
     }
-
-    /* Create and draw the visualization. */
-    ageAndGenderChart = new google.visualization.ColumnChart(document.getElementById('visualization'));
-      ageAndGenderChart.draw(new google.visualization.DataTable(ageAndGenderData), {
+    ageAndGenderOptions = {
         title:"Breakdown by Gender and Age Group",
         isStacked: true,
         vAxis: {
@@ -63,11 +60,13 @@ function drawAgeAndGenderBreakdownChart() {
           title: "Number of people"
         }
       }
-    );
+    /* Create and draw the visualization. */
+    ageAndGenderChart = new google.visualization.ColumnChart(document.getElementById('visualization'));
+    ageAndGenderChart.draw(ageAndGenderData, ageAndGenderOptions);
 }
 
 
-function drawGenderChart(malePercentage, femalePercentage) {
+function drawGenderChart() {
   // Default to 0 if undefined
   // malePercentage = malePercentage || 0;
   // femalePercentage = femalePercentage || 0;
@@ -123,6 +122,6 @@ function updateGenderChart(malePercentage, femalePercentage) {
 
 google.load("visualization", "1", {packages:["corechart"]});
 $(function() {
-  google.setOnLoadCallback(drawGenderChart(15,10));
-  google.setOnLoadCallback(drawAgeAndGenderBreakdownChart);
+  google.setOnLoadCallback(drawGenderChart());
+  google.setOnLoadCallback(drawAgeAndGenderBreakdownChart());
 });
