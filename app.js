@@ -76,7 +76,7 @@ io.sockets.on('connection', function(socket){
 });
 
 setInterval(function() {
-  samples = ["sample_3.jpg"]
+  samples = ["sample.jpg","sample_2.jpg","sample_3.jpg"]
   face.faceFind(samples[Math.floor(Math.random()*samples.length)], processImage)
 },1000)
 
