@@ -1,17 +1,20 @@
 jQuery(function($){
 	var socket = io.connect();
-
+	console.log('starting sockets')
 	socket.on('init faces', function(data){
-		console.log(data);
-		faces = data;
-		getAnalytics();
-	});
-
-	socket.on('add faces',function(newFaces){
-		if (newFaces != null) {
-			faces = faces.concat(newFaces);
+		if (data == null) return;
+		// console.log('in first socket loop', data);
+		for (i = 0; i < data.length; i++) {
+			console.log('this should be an obj',data[i]);
+			faces.push(data[i])
 		}
-		console.log(faces);
-		getAnalytics();
-	})
+		// }
+		// for (var face in data) {
+		//  	if (face == null) continue;
+		// 	faces.push(face)
+		// }
+		// console.log("A",faces)
+		getAnalytics()
+		updateAgeAndGenderChart()
+	});
 });
