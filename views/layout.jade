@@ -4,10 +4,15 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+    link(href="http://fonts.googleapis.com/css?family=Tangerine")
     script(src='http://code.jquery.com/jquery-1.11.0.min.js')
     script(src="/socket.io/socket.io.js")
     script(src="/js/sockets.js")
     script(src = 'https://www.google.com/jsapi?autoload={modules:[{name:visualization,version:1}]}')
     script(src="/js/analytics.js")
   body
+    header
+        .icon
+        h1.head People Around Us
     block content
+    footer
