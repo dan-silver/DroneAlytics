@@ -69,10 +69,6 @@ function drawRaceChart() {
 
   raceChart.draw(raceData, raceOptions);
 
-  google.visualization.events.addListener(raceChart, 'select', function() {
-    var selection = raceChart.getSelection();
-  });
-
   console.log("drawing race chart, first time")
   // google.visualization.events.addListener(raceChart, 'select', function() {
   //   var selection = raceChart.getSelection();
@@ -84,12 +80,13 @@ function drawRaceChart() {
 }
 
 function updateRaceChart() {
+  return;
  if (raceData == null) {
     return;
   }
 
   google.visualization.events.addListener(raceChart, 'ready',function () {
-    console.log("race chart updated")
+    // console.log("race chart updated")
   })
   
   for (i = 0; i < groups.length; i++) {
@@ -132,7 +129,7 @@ function drawGenderChart() {
 }
 
 function getAnalytics() {
-  console.log("getAnalytics")
+  // console.log("getAnalytics")
   var numberOfMales = getGenderStats("Male");
   var numberOfFemales = getGenderStats("Female");
   var malePercentage = numberOfMales / faces.length;
@@ -186,6 +183,9 @@ function drawAgeAndGenderBreakdownChart() {
   // var ageGroupSelection = ageAndGenderChart.getSelection();
   // console.log(ageGroupSelection[0]);
   // drawRaceChart(ageGroupSelection);
+  google.visualization.events.addListener(ageAndGenderChart, 'select', function() {
+    console.log("E",ageAndGenderChart.getSelection())
+  });
 }
 
 function updateAgeAndGenderChart() {
@@ -195,13 +195,13 @@ function updateAgeAndGenderChart() {
   }
 
   for (i = 0; i < groups.length; i++) {
-    console.error('UPDATING GROUP ' + i)
+    // console.error('UPDATING GROUP ' + i)
     ageAndGenderData.setValue(i, 1, getGenderStats('Male', groups[i].minAge, groups[i].maxAge));
     ageAndGenderData.setValue(i, 2, getGenderStats('Female', groups[i].minAge, groups[i].maxAge));
   }
 
   google.visualization.events.addListener(ageAndGenderChart, 'ready',function () {
-    console.log("chart updated")
+    // console.log("chart updated")
   })
 
   ageAndGenderChart.draw(ageAndGenderData, ageAndGenderOptions)

@@ -1,11 +1,11 @@
 jQuery(function($){
 	var socket = io.connect();
-	console.log('starting sockets')
+	// console.log('starting sockets')
 	socket.on('init faces', function(data){
 		if (data == null) return;
 		// console.log('in first socket loop', data);
 		for (i = 0; i < data.length; i++) {
-			console.log('this should be an obj',data[i]);
+			// console.log('this should be an obj',data[i]);
 			faces.push(data[i])
 		}
 		// }
