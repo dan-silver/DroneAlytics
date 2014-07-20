@@ -1,9 +1,28 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-image:url('../img/bg.png');
+  
+  background-color: black;
 }
 
 a {
   color: #00B7FF;
+}
+
+#genderChart{
+	opacity: 1;
+}
+
+#wrap{
+
+	background-color: white;
+	-webkit-box-shadow: 10px 10px 144px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 144px 0px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 144px 0px rgba(0,0,0,0.75);
+
+border-radius: 56px 56px 56px 56px;
+-moz-border-radius: 56px 56px 56px 56px;
+-webkit-border-radius: 56px 56px 56px 56px;
+border: 0px solid #000000;
+
 }
