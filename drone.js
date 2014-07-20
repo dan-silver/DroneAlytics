@@ -11,14 +11,17 @@ var client  = arDrone.createClient({
 drone.startPNGStream = function(callback) {
   console.log("starting png stream")
   var stream = client.getPngStream();
-  // fs.readFile('sample_face.jpg', function(err, data) {mmmmmmmm
-  //   callback(data)
-  // })
 
   stream.on('data', function(imageBuffer) {
+    if (slowDown == true) {
+      slowDown = false
+    } else {
+    	return
+    }
+    // console.log(imageBuffer)
     filename = "temp_image.png"
     fs.writeFile(filename, imageBuffer, function(err) {
-      // console.log("image saved to " + filename)
+      console.log("image saved to " + filename)
       callback(filename)
     });
     
@@ -26,5 +29,9 @@ drone.startPNGStream = function(callback) {
 
 }
 
+slowDown = true
+setInterval(function() {
+  slowDown = true
+}, 2000)
 
 module.exports = drone;
