@@ -35,15 +35,7 @@ box-shadow: 10px 10px 100px -20px rgba(0,0,0,0.75);
 	top: -43px;
 }
 
-.overlay{
 
-  position: absolute;
-  top: 210px;
-  left: 357px;
-  width: 50%;
-  height: 50%;
-  z-index: 10;
-  background-color: rgba(0,0,0,0.5); /*dim the background*/
 
 .head{
 	position: absolute;

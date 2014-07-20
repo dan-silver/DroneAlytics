@@ -3,7 +3,7 @@ var genderChart, genderData, genderOptions;
 var ageAndGenderChart, ageAndGenderData, ageAndGenderOptions;
 var raceChart, raceData, raceOptions;
 
-var colors = ["#D36447", "#D39247", "#316A85", "#33965E"]
+var colors = ["#D36447", "#316A85","#D39247",  "#33965E"]
 
 var groups = [{minAge:13, maxAge:17}, 
               {minAge:18, maxAge:24},
@@ -62,7 +62,7 @@ function drawRaceChart() {
       duration: 1000,
       easing: 'out',
     },
-    colors: colors
+    colors: ["#D36447", "#316A85","#D39247",  "#33965E"]
   };
 
   raceChart = new google.visualization.PieChart(document.getElementById('raceChart'));
@@ -104,7 +104,7 @@ function drawGenderChart() {
       duration: 1000,
       easing: 'out',
     },
-    colors: colors
+    colors: ["#316A85", "#D36447", "#D39247",  "#33965E"]
   };
 
   genderChart = new google.visualization.PieChart(document.getElementById('genderChart'));
