@@ -36,8 +36,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var processImage = function(results) {
   if (!theSocket) return
-  faces = faces.concat(results);
+  faces = faces.concat(results.face);
   theSocket.emit('add faces', faces);
+  console.log("New face added!\ngender: "+results.face[0].attribute.gender.value)
+
   // console.log("result=",results)
 } 
 
@@ -72,11 +74,8 @@ io.sockets.on('connection', function(socket){
 
 
 setInterval(function() {
-  samples = ["sample.jpg", "sample_2.jpg"]
-  face.faceFind(samples[Math.floor(Math.random()*samples.length)], function(results) {
-    // console.log("result=",results)
-    console.log("New face added!\ngender: "+results.face[0].attribute.gender.value)
-  })
+  samples = ["sample_3.jpg"]
+  face.faceFind(samples[Math.floor(Math.random()*samples.length)], processImage)
 },1000)
 
 // development only
