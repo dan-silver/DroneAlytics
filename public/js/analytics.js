@@ -2,7 +2,16 @@ var faces = [];
 var genderChart, genderData, genderOptions; 
 var ageAndGenderChart, ageAndGenderData;
 
-function getGenderStats(gender,minAge, maxAge) {
+var groups = [{minAge:13, maxAge:17}, 
+              {minAge:18, maxAge:24},
+              {minAge:25, maxAge:34},
+              {minAge:35, maxAge:44},
+              {minAge:45, maxAge:54},
+              {minAge:55, maxAge:64},
+              {minAge:64, maxAge:130}
+            ];
+
+function getGenderStats(gender, minAge, maxAge) {
   var numberOf = 0;
   for (i = 0; i < faces.length; i++) {
     if(minAge != null){
@@ -21,58 +30,20 @@ function getGenderStats(gender,minAge, maxAge) {
  * Create and populate the data table.
  * Males are above the x-axis.
  * Females are below the x-axis.
- */ 
-function drawAgeAndGenderBreakdownChart(maleGroup1, femaleGroup1, maleGroup2, femaleGroup2, maleGroup3, femaleGroup3, maleGroup4, femaleGroup4, maleGroup5, femaleGroup5, maleGroup6, femaleGroup6, maleGroup7, femaleGroup7) {
-  ageAndGenderData = {
-    "cols":[
-      {"id":"Age","label":"Age","type":"string"},
-      {"id":"Female","label":"Female","type":"number"},
-      {"id":"Male","label":"Male","type":"number"}
-    ],"rows":[
-      {
-        "c":[
-          {"v":13,"f":"13-17"},
-          {"v":-1 * femaleGroup1,"f": femaleGroup1 +"%"},
-          {"v":maleGroup1,"f": maleGroup1 + "%"}]
-      },
-      {
-        "c":[
-          {"v":18,"f":"18-24"},
-          {"v":-1 * femaleGroup2,"f": femaleGroup2 + "%"},
-          {"v":maleGroup2,"f": maleGroup2 + "%"}]
-      },
-      {
-        "c":[
-          {"v":25,"f":"25-34"},
-          {"v":-1 * femaleGroup3,"f": femaleGroup3 + "%"},
-          {"v":maleGroup3,"f": maleGroup3 + "%"}]
-      },
-      {
-        "c":[
-          {"v":35,"f":"35-44"},
-          {"v":-1 * femaleGroup4,"f": femaleGroup4 + "%"},
-          {"v":maleGroup4,"f": maleGroup4 + "%"}]
-      },
-      {
-        "c":[
-          {"v":45,"f":"45-54"},
-          {"v":-1 * femaleGroup5,"f": femaleGroup5 + "%"},
-          {"v":maleGroup5,"f": maleGroup5 + "%"}]
-      },
-      {
-        "c":[
-          {"v":55,"f":"55-64"},
-          {"v":-1 * femaleGroup6,"f": femaleGroup6 + "%"},
-          {"v":maleGroup6,"f": maleGroup6 + "%"}]
-      },
-      {
-        "c":[
-          {"v":64,"f":"64+"},
-          {"v":-1 * femaleGroup7,"f": femaleGroup7 + "%"},
-          {"v":maleGroup7,"f": maleGroup7 + "%"}]
-      }
-    ]
-  }
+*/
+function drawAgeAndGenderBreakdownChart() {
+    ageAndGenderData = new google.visualization.DataTable();
+    ageAndGenderData.addColumn('string', 'age');
+    ageAndGenderData.addColumn('number', 'Female');
+    ageAndGenderData.addColumn('number', 'Male');
+
+    for (i = 0; i < groups.length; i++) {
+      // Get % of males and females in group
+      var numberOfMales = getGenderStats('Male', groups[i].minAge, groups[i].maxAge);
+      var numberOfFemales = getGenderStats('Female', groups[i].minAge, groups[i].maxAge);
+      ageAndGenderData.addRow(numberOfMales / (numberOfMales + numberOfFemales));
+    }
+
     /* Create and draw the visualization. */
     ageAndGenderChart = new google.visualization.ColumnChart(document.getElementById('visualization'));
       ageAndGenderChart.draw(new google.visualization.DataTable(ageAndGenderData), {
@@ -93,7 +64,8 @@ function drawAgeAndGenderBreakdownChart(maleGroup1, femaleGroup1, maleGroup2, fe
         }
       }
     );
-  };
+}
+
 
 function drawGenderChart(malePercentage, femalePercentage) {
   // Default to 0 if undefined
@@ -153,4 +125,5 @@ function updateGenderChart(malePercentage, femalePercentage) {
 google.load("visualization", "1", {packages:["corechart"]});
 $(function() {
   google.setOnLoadCallback(drawGenderChart(15,10));
+  google.setOnLoadCallback(drawAgeAndGenderBreakdownChart);
 });
