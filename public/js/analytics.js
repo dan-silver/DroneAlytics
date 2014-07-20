@@ -73,6 +73,7 @@ function drawAgeAndGenderBreakdownChart(maleGroup1, femaleGroup1, maleGroup2, fe
           {"v":maleGroup7,"f": maleGroup7 + "%"}]
       }
     ]
+  }
     /* Create and draw the visualization. */
     var chart = new google.visualization.ColumnChart(document.getElementById('visualization'));
       chart.draw(new google.visualization.DataTable(data), {
