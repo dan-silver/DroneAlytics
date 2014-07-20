@@ -1,6 +1,6 @@
 var faces = [];
 var genderChart, genderData, genderOptions; 
-var ageAndGenderChart, ageAndGenderData, ageAndGenderOptions;
+var ageAndGenderChart, ageAndGenderData, ageAndGenderOptions, ageAndGenderSelection;
 var raceChart, raceData, raceOptions;
 
 
@@ -191,7 +191,9 @@ function drawAgeAndGenderBreakdownChart() {
   // console.log(ageGroupSelection[0]);
   // drawRaceChart(ageGroupSelection);
   google.visualization.events.addListener(ageAndGenderChart, 'select', function() {
+    ageAndGenderSelection = ageAndGenderChart.getSelection()
     console.log("E",ageAndGenderChart.getSelection()[0])
+    //add code here
   });
 }
 
@@ -209,6 +211,7 @@ function updateAgeAndGenderChart() {
 
   google.visualization.events.addListener(ageAndGenderChart, 'ready',function () {
     // console.log("chart updated")
+    ageAndGenderChart.setSelection(ageAndGenderSelection)
   })
 
   ageAndGenderChart.draw(ageAndGenderData, ageAndGenderOptions)
