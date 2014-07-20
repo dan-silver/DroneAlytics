@@ -110,6 +110,7 @@ function drawGenderChart(malePercentage, femalePercentage) {
     title: 'Gender Breakdown',
     pieHole: 0.4,
     width: 400,
+    backgroundColor: { fill:'transparent' },
     height: 240,
     vAxis: {minValue:0, maxValue:1200000},
     animation:{
