@@ -2,7 +2,8 @@ var faces = [];
 var genderChart, genderData, genderOptions; 
 var ageAndGenderChart, ageAndGenderData, ageAndGenderOptions;
 
-var groups = [{minAge:13, maxAge:17}, 
+var groups = [
+              {minAge:13, maxAge:17}, 
               {minAge:18, maxAge:24},
               {minAge:25, maxAge:34},
               {minAge:35, maxAge:44},
@@ -37,9 +38,8 @@ function drawAgeAndGenderBreakdownChart() {
   ageAndGenderData.addColumn('number', 'Female');
   ageAndGenderData.addColumn('number', 'Male');
 
-<<<<<<< HEAD
   for (i = 0; i < groups.length; i++) {
-    ageAndGenderData.addRow([groups[i].minAge + " - " + groups[i].maxAge, 0, 0]);
+    ageAndGenderData.addRow([groups[i].minAge + " - " + groups[i].maxAge, -5, 5]);
   }
   ageAndGenderOptions = {
     title:"Breakdown by Gender and Age Group",
@@ -65,11 +65,13 @@ function drawAgeAndGenderBreakdownChart() {
 
 function updateAgeAndGenderChart() {
   if (ageAndGenderData == null) {
-    console.log('ageAndGenderData is null')
+    console.error('ageAndGenderData is null')
     return;
   }
+  console.error('UPDATING DA CHART')
 
   for (i = 0; i < groups.length; i++) {
+    console.error('UPDATING GROUP ' + i)
     ageAndGenderData.setValue([i, 1, getGenderStats('Male', groups[i].minAge, groups[i].maxAge)]);
     ageAndGenderData.setValue([i, 2, getGenderStats('Female', groups[i].minAge, groups[i].maxAge)]);
   }

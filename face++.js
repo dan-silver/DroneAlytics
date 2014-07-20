@@ -26,7 +26,6 @@ module.exports.faceFind = function(fileName, callback){
 
 }
 
-
 module.exports.facecompare = function(face_id1,face_id2,returnstuff){
 
   /*
