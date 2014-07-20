@@ -1,7 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  div#genderChart
-  div#visualization
+  .container
+    h1= title
+    p Welcome to #{title}
+    .row
+      .col-md-4
+        h1 Gender Ratio
+        div#genderChart
+      .col-md-4
+        div#visualization

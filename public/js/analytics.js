@@ -107,11 +107,10 @@ function drawGenderChart(malePercentage, femalePercentage) {
     genderData.addRow(['Female', 50]);
 
   genderOptions = {
-    title: 'Gender Breakdown',
     pieHole: 0.4,
-    width: 400,
+    width: 800,
     backgroundColor: { fill:'transparent' },
-    height: 240,
+    height: 500,
     vAxis: {minValue:0, maxValue:1200000},
     animation:{
       duration: 1000,
