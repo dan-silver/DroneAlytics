@@ -25,6 +25,8 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 a=true
+
+
 drone.startPNGStream(function(fileName) {
   if (a==true) {
     a=false
@@ -46,3 +48,6 @@ if ('development' == app.get('env')) {
 http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+
+

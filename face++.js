@@ -30,7 +30,7 @@ module.exports.faceFind = function(fileName, callback){
 }
 
 
-facecompare = function(face_id1,face_id2){
+module.exports.facecompare = function(face_id1,face_id2,returnstuff){
 
   /*
   var face_id2 = "2a207e2d79a9746c4a5f6d55fa3e9724"
@@ -52,11 +52,17 @@ facecompare = function(face_id1,face_id2){
 
         //the whole response has been recieved, so we just print it out here
         response.on('end', function() {
-
-            console.log(str);
+            var data = JSON.parse(str);
+            if(data.similarity >= 65){
+                returnstuff(1);
+            }
+            else returnstuff(0);
+                    
         });
     }    
 
     http.get(options, callback).end();
 
 }
+
+
