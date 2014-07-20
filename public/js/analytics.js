@@ -62,7 +62,7 @@ function drawRaceChart() {
       duration: 1000,
       easing: 'out',
     },
-    colors: ["#D36447", "#316A85","#D39247",  "#33965E"]
+    colors: colors
   };
 
   raceChart = new google.visualization.PieChart(document.getElementById('raceChart'));
@@ -104,7 +104,7 @@ function drawGenderChart() {
       duration: 1000,
       easing: 'out',
     },
-    colors: ["#316A85", "#D36447", "#D39247",  "#33965E"]
+    colors: colors
   };
 
   genderChart = new google.visualization.PieChart(document.getElementById('genderChart'));
