@@ -77,6 +77,26 @@ function drawAgeAndGenderBreakdownChart(maleGroup1, femaleGroup1, maleGroup2, fe
           {"v":maleGroup7,"f": maleGroup7 + "%"}]
       }
     ]
+    /* Create and draw the visualization. */
+    var chart = new google.visualization.ColumnChart(document.getElementById('visualization'));
+      chart.draw(new google.visualization.DataTable(data), {
+        title:"Breakdown by Gender and Age Group",
+        isStacked: true,
+        vAxis: {
+          format: "##;##"
+        },
+        hAxis: {
+          format: "##;##"
+        },
+        width:600, height:400,
+        hAxis: {
+          title: "Age"
+        },
+        vAxis: {
+          title: "Number of people"
+        }
+      }
+    );
   };
 
 function drawGenderChart(malePercentage, femalePercentage) {
