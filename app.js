@@ -24,11 +24,16 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-
-drone.startPNGStream(function(img) {
-  face.faceFind(img, function() {
-  	console.log("now update UI")
-  })
+a=true
+drone.startPNGStream(function(fileName) {
+  if (a==true) {
+    a=false
+    console.log("received image from startPNGStream - " + fileName)
+    face.faceFind(fileName, function(results) {
+      console.log("now update UI")
+      console.log("result=",results)
+    })
+  }
 })
 
 

@@ -11,18 +11,19 @@ var client  = arDrone.createClient({
 drone.startPNGStream = function(callback) {
   console.log("starting png stream")
   var stream = client.getPngStream();
-  fs.readFile('sample_face.jpg', function(err, data) {
-  	callback(data)
-  })
+  // fs.readFile('sample_face.jpg', function(err, data) {mmmmmmmm
+  //   callback(data)
+  // })
 
-/*  stream.on('data', function(imageBuffer) {
-    callback(imageBuffer)
-    // fs.writeFile('test.png', imageBuffer, function(err) {
-    //   console.log("image saved")
-    // });
+  stream.on('data', function(imageBuffer) {
+    filename = "temp_image.png"
+    fs.writeFile(filename, imageBuffer, function(err) {
+      // console.log("image saved to " + filename)
+      callback(filename)
+    });
     
   });
-*/
+
 }
 
 
