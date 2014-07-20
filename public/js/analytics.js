@@ -1,8 +1,5 @@
 var faces = [];
-/**
- * @param  array of faces
- * @return number of males
- */
+
 function getMales() {
   var numberOfMales = 0;
   for (i = 0; i < faces.length; i++) {
@@ -13,10 +10,6 @@ function getMales() {
   return numberOfMales;
 }
 
-/**
- * @param  array of faces
- * @return number of males
- */
 function getFemales() {
   var numberOfFemales = 0;
   for (i = 0; i < faces.length; i++) {
@@ -28,6 +21,7 @@ function getFemales() {
 }
 
 function drawGenderChart(malePercentage, femalePercentage) {
+  // Default to 0 if undefined
   malePercentage = malePercentage || 0;
   femalePercentage = femalePercentage || 0;
 
@@ -56,5 +50,5 @@ function getAnalytics() {
 
 google.load("visualization", "1", {packages:["corechart"]});
 $(function() {
-  google.setOnLoadCallback(drawGenderChart);
+  google.setOnLoadCallback(getAnalytics);
 });
