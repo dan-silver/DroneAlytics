@@ -3,6 +3,8 @@ var genderChart, genderData, genderOptions;
 var ageAndGenderChart, ageAndGenderData, ageAndGenderOptions;
 var raceChart, raceData, raceOptions;
 
+
+
 var colors = ["#D36447", "#316A85","#D39247",  "#33965E"]
 
 var groups = [{minAge:13, maxAge:17}, 
@@ -47,10 +49,9 @@ function drawRaceChart() {
   raceData.addColumn('number', 'Value');
 
   // init default values
-  raceData.addRow(['White', 50])
-  raceData.addRow(['Black', 30])
-  raceData.addRow(['Indian', 10])
-  raceData.addRow(['Chinese', 10])
+  raceData.addRow(['White', 100])
+  raceData.addRow(['Black', 0])
+  raceData.addRow(['Indian', 0])
 
   raceOptions = {
     pieHole: 0.4,
@@ -83,8 +84,25 @@ function drawRaceChart() {
   // });
 }
 
-function updateRaceChart(ageGroup) {
+function updateRaceChart() {
+ if (raceData == null) {
+    return;
+  }
 
+  google.visualization.events.addListener(raceChart, 'ready',function () {
+    console.log("race chart updated")
+  })
+  
+  for (i = 0; i < groups.length; i++) {
+    raceData.setValue(i, 1, getGenderStats('Male', groups[i].minAge, groups[i].maxAge, 'white'));
+    raceData.setValue(i, 2, getGenderStats('Female', groups[i].minAge, groups[i].maxAge, 'white'));
+
+    raceData.setValue(i, 1, getGenderStats('Male', groups[i].minAge, groups[i].maxAge, 'black'));
+    raceData.setValue(i, 2, getGenderStats('Female', groups[i].minAge, groups[i].maxAge, 'black'));
+
+    raceData.setValue(i, 1, getGenderStats('Male', groups[i].minAge, groups[i].maxAge, 'asian'));
+    raceData.setValue(i, 2, getGenderStats('Female', groups[i].minAge, groups[i].maxAge, 'asian'));
+  }
 }
 
 function drawGenderChart() {
