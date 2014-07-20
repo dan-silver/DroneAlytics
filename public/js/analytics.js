@@ -33,10 +33,14 @@ function getGenderStats(gender, minAge, maxAge, race) {
           continue;
       }
     }
-    if (faces[i].attribute.gender.value == gender) {
+    if (faces[i].attribute.gender.value == gender && race == null) {
       numberOf++;
     }
-
+    if (race != null) {
+      if (faces[i].attribute.race.value == race) {
+        numberOf++;
+      }
+    }
     i++;
     //console.log("J IS " + j)
   }
@@ -51,7 +55,7 @@ function drawRaceChart() {
   // init default values
   raceData.addRow(['White', 100])
   raceData.addRow(['Black', 0])
-  raceData.addRow(['Indian', 0])
+  raceData.addRow(['Asian', 0])
 
   raceOptions = {
     pieHole: 0.4,
@@ -79,26 +83,29 @@ function drawRaceChart() {
   // });
 }
 
-function updateRaceChart() {
-  return;
+function updateRaceChart(selectedGenderIndex, selectedAgeGroup) {
+  console.log('updateRaceChart')
  if (raceData == null) {
     return;
   }
 
-  google.visualization.events.addListener(raceChart, 'ready',function () {
-    // console.log("race chart updated")
-  })
-  
-  for (i = 0; i < groups.length; i++) {
-    raceData.setValue(i, 1, getGenderStats('Male', groups[i].minAge, groups[i].maxAge, 'white'));
-    raceData.setValue(i, 2, getGenderStats('Female', groups[i].minAge, groups[i].maxAge, 'white'));
-
-    raceData.setValue(i, 1, getGenderStats('Male', groups[i].minAge, groups[i].maxAge, 'black'));
-    raceData.setValue(i, 2, getGenderStats('Female', groups[i].minAge, groups[i].maxAge, 'black'));
-
-    raceData.setValue(i, 1, getGenderStats('Male', groups[i].minAge, groups[i].maxAge, 'asian'));
-    raceData.setValue(i, 2, getGenderStats('Female', groups[i].minAge, groups[i].maxAge, 'asian'));
+  minAge = groups[selectedAgeGroup]
+  maxAge = groups[selectedAgeGroup]
+  var selectedGender;
+  if (selectedGenderIndex == 1) {
+    selectedGenderIndex = "Female"
+  } else {
+    selectedGenderIndex = "Male"
   }
+  var test = getGenderStats(selectedGender, minAge, maxAge, 'White')
+  raceData.setValue(0, 1, getGenderStats(selectedGender, minAge, maxAge, 'White'));
+  raceData.setValue(1, 1, getGenderStats(selectedGender, minAge, maxAge, 'Black'));
+  raceData.setValue(2, 1, getGenderStats(selectedGender, minAge, maxAge, 'Asian'));
+
+  google.visualization.events.addListener(raceChart, 'ready',function () {
+    console.log("race chart updated")
+  })
+  raceChart.draw(raceData, raceOptions);
 }
 
 function drawGenderChart() {
@@ -184,7 +191,7 @@ function drawAgeAndGenderBreakdownChart() {
   // console.log(ageGroupSelection[0]);
   // drawRaceChart(ageGroupSelection);
   google.visualization.events.addListener(ageAndGenderChart, 'select', function() {
-    console.log("E",ageAndGenderChart.getSelection())
+    console.log("E",ageAndGenderChart.getSelection()[0])
   });
 }
 
