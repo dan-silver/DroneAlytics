@@ -36,9 +36,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 var processImage = function(results) {
   faces = faces.concat(results.face);
   io.sockets.emit('add faces', faces);
-  console.log("New face added!\ngender: "+results.face[0].attribute.gender.value)
-
-  // console.log("result=",results)
 } 
 
 var faces = [];
