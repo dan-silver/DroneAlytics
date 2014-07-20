@@ -8,7 +8,9 @@ jQuery(function($){
 	});
 
 	socket.on('add faces',function(newFaces){
-		faces = faces.concat(newFaces);
+		if (newFaces != null) {
+			faces = faces.concat(newFaces);
+		}
 		console.log(faces);
 		getAnalytics();
 	})
