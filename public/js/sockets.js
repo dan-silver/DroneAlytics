@@ -16,5 +16,6 @@ jQuery(function($){
 		// console.log("A",faces)
 		getAnalytics()
 		updateAgeAndGenderChart()
+		updateRaceChart();
 	});
 });
