@@ -110,6 +110,8 @@ function drawGenderChart(malePercentage, femalePercentage) {
   options = {
     title: 'Gender Breakdown',
     pieHole: 0.4,
+    width: 400,
+    height: 240,
     animation:{
       duration: 1000,
       easing: 'out',
@@ -137,7 +139,10 @@ function updateGenderChart(malePercentage, femalePercentage) {
   if (data == null) return;
   data.setValue(0,1,malePercentage)
   data.setValue(1,1,femalePercentage)
-  chart.draw(data, options)
+        google.visualization.events.addListener(chart, 'ready',function () {
+          console.log("chart updated")
+        })
+  chart.draw(data, options);
   console.log("updating chart")
 }
 
