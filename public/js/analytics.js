@@ -37,6 +37,7 @@ function drawAgeAndGenderBreakdownChart() {
   ageAndGenderData.addColumn('number', 'Female');
   ageAndGenderData.addColumn('number', 'Male');
 
+<<<<<<< HEAD
   for (i = 0; i < groups.length; i++) {
     ageAndGenderData.addRow([groups[i].minAge + " - " + groups[i].maxAge, 0, 0]);
   }
