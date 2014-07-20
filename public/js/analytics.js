@@ -37,6 +37,7 @@ function getGenderStats(gender, minAge, maxAge, race) {
       numberOf++;
     }
     if (race != null) {
+      console.error("MADE IT TO POINT A")
       if (faces[i].attribute.race.value == race) {
         numberOf++;
       }
@@ -85,7 +86,7 @@ function drawRaceChart() {
 
 function updateRaceChart(selectedGenderIndex, selectedAgeGroup) {
   console.log('updateRaceChart')
- if (raceData == null) {
+  if (raceData == null) {
     return;
   }
 
@@ -97,7 +98,6 @@ function updateRaceChart(selectedGenderIndex, selectedAgeGroup) {
   } else {
     selectedGenderIndex = "Male"
   }
-  var test = getGenderStats(selectedGender, minAge, maxAge, 'White')
   raceData.setValue(0, 1, getGenderStats(selectedGender, minAge, maxAge, 'White'));
   raceData.setValue(1, 1, getGenderStats(selectedGender, minAge, maxAge, 'Black'));
   raceData.setValue(2, 1, getGenderStats(selectedGender, minAge, maxAge, 'Asian'));
@@ -193,7 +193,7 @@ function drawAgeAndGenderBreakdownChart() {
   google.visualization.events.addListener(ageAndGenderChart, 'select', function() {
     ageAndGenderSelection = ageAndGenderChart.getSelection()
     console.log("E",ageAndGenderChart.getSelection()[0])
-    //add code here
+    updateRaceChart(ageAndGenderSelection[0].column, ageAndGenderSelection[0].row)
   });
 }
 

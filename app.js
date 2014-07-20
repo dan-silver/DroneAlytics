@@ -47,23 +47,20 @@ var processImage = function(results) {
   io.sockets.emit('init faces', results.face);
 } 
 
-var faces = [];
-/*
-a=true
+var faces = [],
+    slowDown = true
+
 drone.startPNGStream(function(fileName) {
-  if (a==true) {
-    a=false
+  if (slowDown == true) {
+    slowDown = false
     console.log("received image from startPNGStream - " + fileName)
-    face.faceFind(fileName, function(results) {
-      console.log("now update UI")
-      console.log("result=",results)
-      for(i=0;i<results.face.length;i++){
-        faces.push(face[i]);
-      }
-    })
+    face.faceFind(fileName, processImage);
   }
 })
-*/
+
+setInterval(function() {
+	slowDown = true
+}, 1000)
 
 app.get('/',function(req, res){
   res.render('index');
@@ -75,10 +72,10 @@ io.sockets.on('connection', function(socket){
   socket.emit('init faces',faces);
 });
 
-setInterval(function() {
-  samples = ["sample.jpg","sample_2.jpg","sample_3.jpg"]
-  face.faceFind(samples[Math.floor(Math.random()*samples.length)], processImage)
-},1000)
+// setInterval(function() {
+//   samples = ["sample.jpg","sample_2.jpg","sample_3.jpg"]
+//   face.faceFind(samples[Math.floor(Math.random()*samples.length)], processImage)
+// },1000)
 
 // development only
 if ('development' == app.get('env')) {

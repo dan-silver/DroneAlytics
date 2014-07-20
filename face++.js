@@ -10,9 +10,9 @@ module.exports.faceFind = function(fileName, callback){
   // console.log('keys.api_key=',keys.api_key)
   child = exec('curl -i -F api_key=5dbb712f5a8a4787da2ab34058b98876 -F api_secret=cV-5DUanQmpt2EHIcUozVRfHXVTLlFzN -F attribute=age,gender,race -F img=@'+fileName+' http://apius.faceplusplus.com/v2/detection/detect',
     function (error, stdout, stderr) {
-      // console.log(stdout)
-      // console.log(stderr)
-      // console.log(error)
+      console.log(stdout)
+      console.log(stderr)
+      console.log(error)
       curlRes = stdout
       curlRes = curlRes.split("\n")
       curlRes.splice(0,10)

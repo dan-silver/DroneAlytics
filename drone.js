@@ -4,7 +4,8 @@ var arDrone = require('ar-drone')
 
 
 var client  = arDrone.createClient({
-  converterPath: "avconv"
+  converterPath: "avconv",
+  imageSize: "800x450"
 })
 
 
