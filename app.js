@@ -30,15 +30,16 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-drone.startPNGStream(function(fileName) {
-	face.faceFind(fileName, function(results) {
-		if (!theSocket) return
-		faces = faces.concat(results);
-		theSocket.emit('add faces', faces);
-		console.log("now update UI")
-		console.log("result=",results)
-  	})
-})
+// drone.startPNGStream(function(fileName) {
+//   face.faceFind(fileName, processImage)
+// })
+
+var processImage = function(results) {
+  if (!theSocket) return
+  faces = faces.concat(results);
+  theSocket.emit('add faces', faces);
+  // console.log("result=",results)
+} 
 
 var faces = [];
 /*
@@ -51,7 +52,7 @@ drone.startPNGStream(function(fileName) {
       console.log("now update UI")
       console.log("result=",results)
       for(i=0;i<results.face.length;i++){
-      	faces.push(face[i]);
+        faces.push(face[i]);
       }
     })
   }
@@ -59,22 +60,24 @@ drone.startPNGStream(function(fileName) {
 */
 
 app.get('/',function(req, res){
-	res.render('index');
+  res.render('index');
 });
 
 
 io.sockets.on('connection', function(socket){
-	if (!theSocket) theSocket = socket
-	socket.emit('init faces',faces);
+  if (!theSocket) theSocket = socket
+  socket.emit('init faces',faces);
 });
 
 
 
-
-// face.faceFind("sample.jpg", function(results) {
-//   console.log("now update UI")
-//   console.log("result=",results)
-// })
+setInterval(function() {
+  samples = ["sample.jpg", "sample_2.jpg"]
+  face.faceFind(samples[Math.floor(Math.random()*samples.length)], function(results) {
+    // console.log("result=",results)
+    console.log("New face added!\ngender: "+results.face[0].attribute.gender.value)
+  })
+},1000)
 
 // development only
 if ('development' == app.get('env')) {
