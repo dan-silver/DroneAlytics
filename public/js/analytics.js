@@ -1,6 +1,6 @@
 var faces = [];
 var genderChart, genderData, genderOptions; 
-var ageAndGenderChart, ageAndGenderData;
+var ageAndGenderChart, ageAndGenderData, ageAndGenderOptions;
 
 var groups = [{minAge:13, maxAge:17}, 
               {minAge:18, maxAge:24},
@@ -32,46 +32,56 @@ function getGenderStats(gender, minAge, maxAge) {
  * Females are below the x-axis.
 */
 function drawAgeAndGenderBreakdownChart() {
-    ageAndGenderData = new google.visualization.DataTable();
-    ageAndGenderData.addColumn('string', 'age');
-    ageAndGenderData.addColumn('number', 'Female');
-    ageAndGenderData.addColumn('number', 'Male');
+  ageAndGenderData = new google.visualization.DataTable();
+  ageAndGenderData.addColumn('string', 'age');
+  ageAndGenderData.addColumn('number', 'Female');
+  ageAndGenderData.addColumn('number', 'Male');
 
-    for (i = 0; i < groups.length; i++) {
-      // Get % of males and females in group
-      var numberOfMales = getGenderStats('Male', groups[i].minAge, groups[i].maxAge);
-      var numberOfFemales = getGenderStats('Female', groups[i].minAge, groups[i].maxAge);
-      ageAndGenderData.addRow(numberOfMales / (numberOfMales + numberOfFemales));
+  for (i = 0; i < groups.length; i++) {
+    ageAndGenderData.addRow([groups[i].minAge + " - " + groups[i].maxAge, 0, 0]);
+  }
+  ageAndGenderOptions = {
+    title:"Breakdown by Gender and Age Group",
+    isStacked: true,
+    vAxis: {
+      format: "##;##"
+    },
+    hAxis: {
+      format: "##;##"
+    },
+    width:600, height:400,
+    hAxis: {
+      title: "Age"
+    },
+    vAxis: {
+      title: "Number of people"
     }
-
-    /* Create and draw the visualization. */
-    ageAndGenderChart = new google.visualization.ColumnChart(document.getElementById('visualization'));
-      ageAndGenderChart.draw(new google.visualization.DataTable(ageAndGenderData), {
-        title:"Breakdown by Gender and Age Group",
-        isStacked: true,
-        vAxis: {
-          format: "##;##"
-        },
-        hAxis: {
-          format: "##;##"
-        },
-        width:600, height:400,
-        hAxis: {
-          title: "Age"
-        },
-        vAxis: {
-          title: "Number of people"
-        }
-      }
-    );
+  };
+  /* Create and draw the visualization. */
+  ageAndGenderChart = new google.visualization.ColumnChart(document.getElementById('visualization'));
+  ageAndGenderChart.draw(ageAndGenderData, ageAndGenderOptions);
 }
 
+function updateAgeAndGenderChart() {
+  if (ageAndGenderData == null) {
+    console.log('ageAndGenderData is null')
+    return;
+  }
 
-function drawGenderChart(malePercentage, femalePercentage) {
+  for (i = 0; i < groups.length; i++) {
+    ageAndGenderData.setValue([i, 1, getGenderStats('Male', groups[i].minAge, groups[i].maxAge)]);
+    ageAndGenderData.setValue([i, 2, getGenderStats('Female', groups[i].minAge, groups[i].maxAge)]);
+  }
+
+  google.visualization.events.addListener(ageAndGenderChart, 'ready',function () {
+    console.log("chart updated")
+  })
+
+  ageAndGenderChart.draw(ageAndGenderData, ageAndGenderOptions)
+}
+
+function drawGenderChart() {
   // Default to 0 if undefined
-  // malePercentage = malePercentage || 0;
-  // femalePercentage = femalePercentage || 0;
-
     genderData = new google.visualization.DataTable();
     genderData.addColumn('string', 'Gender');
     genderData.addColumn('number', 'Value');
@@ -123,6 +133,6 @@ function updateGenderChart(malePercentage, femalePercentage) {
 
 google.load("visualization", "1", {packages:["corechart"]});
 $(function() {
-  google.setOnLoadCallback(drawGenderChart(15,10));
-  google.setOnLoadCallback(drawAgeAndGenderBreakdownChart);
+  google.setOnLoadCallback(drawGenderChart());
+  google.setOnLoadCallback(drawAgeAndGenderBreakdownChart());
 });

@@ -13,5 +13,6 @@ jQuery(function($){
 		}
 		console.log(faces);
 		getAnalytics();
+		updateAgeAndGenderChart()
 	})
 });
