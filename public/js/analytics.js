@@ -1,4 +1,4 @@
-function drawGenderChart() {
+function drawRaceChart() {
   var data = google.visualization.arrayToDataTable([
     ['Gender', 'Percentage'],
     ['Male', 60],
@@ -14,7 +14,8 @@ function drawGenderChart() {
   chart.draw(data, options);
 }
 
+google.load("visualization", "1", {packages:["corechart"]});
+
 $(function() {
-  google.load("visualization", "1", {packages:["corechart"]});
-  google.setOnLoadCallback(drawGenderChart);
+  google.setOnLoadCallback(drawRaceChart);
 });
