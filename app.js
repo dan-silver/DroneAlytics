@@ -2,20 +2,19 @@
  * Module dependencies.
  */
 
-var express = require('express');
-var routes = require('./routes');
-var user = require('./routes/user');
-var http = require('http');
-var path = require('path');
-var face = require('./face++');
-var drone = require('./drone.js');
-
-var app = express();
+var express = require('express'),
+	 routes = require('./routes'),
+	   user = require('./routes/user'),
+	   http = require('http'),
+	   path = require('path'),
+	   face = require('./face++'),
+	  drone = require('./drone.js'),
+        app = express();
 
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
-
-
+var faces = [],
+    slowDown = true
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -47,8 +46,6 @@ var processImage = function(results) {
   io.sockets.emit('init faces', results.face);
 } 
 
-var faces = [],
-    slowDown = true
 
 drone.startPNGStream(function(fileName) {
   if (slowDown == true) {
@@ -85,6 +82,3 @@ if ('development' == app.get('env')) {
 server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
-
-
-
