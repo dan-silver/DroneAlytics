@@ -13,8 +13,7 @@ var express = require('express'),
 
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
-var faces = [],
-    slowDown = true
+var faces = []
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -48,16 +47,9 @@ var processImage = function(results) {
 
 
 drone.startPNGStream(function(fileName) {
-  if (slowDown == true) {
-    slowDown = false
     console.log("received image from startPNGStream - " + fileName)
     face.faceFind(fileName, processImage);
-  }
 })
-
-setInterval(function() {
-	slowDown = true
-}, 1000)
 
 app.get('/',function(req, res){
   res.render('index');

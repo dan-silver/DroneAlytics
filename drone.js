@@ -1,13 +1,11 @@
-var arDrone = require('ar-drone')
-  , fs = require("fs")
-  , drone = {}
-
+var arDrone = require('ar-drone'),
+    fs = require("fs"),
+    drone = {}
 
 var client  = arDrone.createClient({
   converterPath: "avconv",
   imageSize: "800x450"
 })
-
 
 drone.startPNGStream = function(callback) {
   console.log("starting png stream")
@@ -27,7 +25,6 @@ drone.startPNGStream = function(callback) {
     });
     
   });
-
 }
 
 slowDown = true
