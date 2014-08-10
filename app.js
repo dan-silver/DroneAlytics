@@ -41,7 +41,7 @@ var processImage = function(results) {
 			}		
 		}
 	}
-  console.log("BBB", faces)
+  // console.log("BBB", faces)
   io.sockets.emit('init faces', results.face);
 } 
 
