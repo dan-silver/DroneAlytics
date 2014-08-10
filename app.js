@@ -27,17 +27,11 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-// drone.startPNGStream(function(fileName) {
-//   face.faceFind(fileName, processImage)
-// })
-
 var processImage = function(results) {
-	if (results != null && results.face != null) {
+	if (results != null) {
 		console.log("faces: ", results.face.length)
 		for (var i=0;i<results.face.length;i++) {
-			if (results.face[i] != null) {
-				faces.push(results.face[i])
-			}		
+			faces.push(results.face[i])
 		}
 	}
     io.sockets.emit('init faces', results.face);
@@ -46,7 +40,7 @@ var processImage = function(results) {
 drone.startPNGStream(function(imgBuffer) {
   console.log('emiting image')
   io.sockets.emit('image', imgBuffer.toString('base64'))
-  // face.faceFind(imgBuffer, processImage)
+  face.faceFind(imgBuffer, processImage)
 })
 
 app.get('/',function(req, res){

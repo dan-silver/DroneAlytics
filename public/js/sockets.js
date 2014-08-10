@@ -1,8 +1,7 @@
-jQuery(function($){
+$(function() {
 	var socket = io.connect();
-	// console.log('starting sockets')
 	socket.on('image', function(data) {
-		document.getElementById('latestImg').setAttribute( 'src', 'data:image/png;base64,' + data);
+		$('#latestImg').attr( 'src', 'data:image/png;base64,' + data);
 	})
 	socket.on('init faces', function(data){
 		if (data == null) return;

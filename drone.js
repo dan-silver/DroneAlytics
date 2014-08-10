@@ -1,6 +1,4 @@
 var arDrone = require('ar-drone'),
-    fs = require("fs"),
-    drone = {},
     slowDown = false;
 
 var client  = arDrone.createClient({
@@ -12,11 +10,10 @@ setInterval(function() {
   slowDown = false
 }, 2500)
 
-drone.startPNGStream = function(callback) {
+module.exports.startPNGStream = function(callback) {
   var stream = client.getPngStream();
 
   stream.on('data', function(imageBuffer) {
-  console.log('raw png rec')
     if (slowDown == true) {
       return
     }
@@ -24,5 +21,3 @@ drone.startPNGStream = function(callback) {
     callback(imageBuffer)
   });
 }
-
-module.exports = drone;
