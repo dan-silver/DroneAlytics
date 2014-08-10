@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var processImage = function(results) {
 	if (results != null && results.face != null) {
-		// console.log("results ARRAY", results.face)
+		console.log("faces: ", results.face.length)
 		for (var i=0;i<results.face.length;i++) {
 			// console.log("one face", face);
 			if (results.face[i] != null) {
@@ -46,9 +46,8 @@ var processImage = function(results) {
 } 
 
 
-drone.startPNGStream(function(fileName) {
-    console.log("received image from startPNGStream - " + fileName)
-    face.faceFind(fileName, processImage);
+drone.startPNGStream(function(imgBuffer) {
+  face.faceFind(imgBuffer, processImage);
 })
 
 app.get('/',function(req, res){

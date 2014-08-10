@@ -1,30 +1,21 @@
 var http = require('https'),
     keys = require('./config.js'),
-    request = require("request");
+    request = require("request"),
+    fs = require("fs"),
+    path = require('path');
 
-module.exports.faceFind = function(fileName, callback) {
+module.exports.faceFind = function(imgBuffer, callback) {
 
-  var exec = require('child_process').exec,
-      child;
+  url = "http://apius.faceplusplus.com/v2/detection/detect"
+  var r = request.post(url, {json: true}, function(err, data, body) {
+    if (err) throw err;
+    callback(body)
+  })
 
-  child = exec('curl -i -F api_key=' + keys.api_key + ' -F api_secret=' + keys.api_secret + ' -F attribute=age,gender,race -F img=@'+fileName+' http://apius.faceplusplus.com/v2/detection/detect',
-    function (error, stdout, stderr) {
-      console.log(stdout)
-      console.log(stderr)
-      console.log(error)
-      curlRes = stdout
-      curlRes = curlRes.split("\n")
-      curlRes.splice(0,10)
-      var resultObject = JSON.parse(curlRes.join("\n"))
-      // console.log(resultObject);
-      if (stderr) console.log('stderr: ' + stderr);
-      if (error !== null) {
-        console.log('exec error: ' + error);
-      } else if (resultObject != null && (Object.getPrototypeOf(resultObject) === Object.prototype || Object.getPrototypeOf(resultObject) === Array.prototype)) {
-        callback(resultObject)
-      }
-  });
-
+  var form = r.form();
+  form.append("api_key", keys.api_key)
+  form.append("api_secret", keys.api_secret)
+  form.append("img", imgBuffer, {filename: 'a.jpg'})
 }
 
 module.exports.facecompare = function(face_id1,face_id2,returnstuff) {
@@ -51,9 +42,5 @@ module.exports.facecompare = function(face_id1,face_id2,returnstuff) {
                     
         });
     }    
-
     http.get(options, callback).end();
-
 }
-
-
