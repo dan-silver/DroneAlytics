@@ -27,7 +27,7 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-var processImage = function(results) {
+var processImage = function(error, rawData, results) {
 	if (results != null) {
 		console.log("faces: ", results.face.length)
 		for (var i=0;i<results.face.length;i++) {

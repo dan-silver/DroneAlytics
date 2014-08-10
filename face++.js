@@ -6,10 +6,7 @@ var http = require('https'),
 module.exports.faceFind = function(imgBuffer, callback) {
 
   url = "http://apius.faceplusplus.com/v2/detection/detect"
-  var r = request.post(url, {json: true}, function(err, data, body) {
-    if (err) throw err;
-    callback(body)
-  })
+  var r = request.post(url, {json: true}, callback)
 
   var form = r.form();
   form.append("api_key", keys.api_key)
