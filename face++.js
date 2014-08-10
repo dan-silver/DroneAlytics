@@ -1,7 +1,6 @@
 var http = require('https'),
     keys = require('./config.js'),
     request = require("request"),
-    fs = require("fs"),
     path = require('path');
 
 module.exports.faceFind = function(imgBuffer, callback) {

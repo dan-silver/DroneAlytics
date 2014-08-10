@@ -35,28 +35,25 @@ var processImage = function(results) {
 	if (results != null && results.face != null) {
 		console.log("faces: ", results.face.length)
 		for (var i=0;i<results.face.length;i++) {
-			// console.log("one face", face);
 			if (results.face[i] != null) {
 				faces.push(results.face[i])
 			}		
 		}
 	}
-  // console.log("BBB", faces)
-  io.sockets.emit('init faces', results.face);
-} 
-
+    io.sockets.emit('init faces', results.face);
+}
 
 drone.startPNGStream(function(imgBuffer) {
-  face.faceFind(imgBuffer, processImage);
+  console.log('emiting image')
+  io.sockets.emit('image', imgBuffer.toString('base64'))
+  // face.faceFind(imgBuffer, processImage)
 })
 
 app.get('/',function(req, res){
   res.render('index');
 });
 
-
-io.sockets.on('connection', function(socket){
-  // console.log("AAA", faces)
+io.sockets.on('connection', function(socket) {
   socket.emit('init faces',faces);
 });
 
