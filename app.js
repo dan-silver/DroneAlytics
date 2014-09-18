@@ -14,6 +14,7 @@ var express = require('express'),
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 var faces = []
+var actual_faces = []
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -27,13 +28,15 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-var processImage = function(error, rawData, results) {
+var processImage = function(imgBuffer, error, rawData, results) {
 	if (results != null) {
 		console.log("faces: ", results.face.length)
 		for (var i=0;i<results.face.length;i++) {
 			faces.push(results.face[i])
-		}
-	}
+      io.sockets.emit('actual_face', imgBuffer.toString('base64'));
+      actual_faces.push(imgBuffer.toString('base64'))
+    }
+  }
     io.sockets.emit('init faces', results.face);
 }
 
@@ -43,12 +46,19 @@ drone.startPNGStream(function(imgBuffer) {
   face.faceFind(imgBuffer, processImage)
 })
 
+var checkForSuccesses = function(imgBuffer) {
+  conole.log(imgBuffer)
+}
+
 app.get('/',function(req, res){
   res.render('index');
 });
 
 io.sockets.on('connection', function(socket) {
   socket.emit('init faces',faces);
+  for (i=0;i<actual_faces.length;i++) {
+    socket.emit('actual_face',actual_faces[i]);
+  }
 });
 
 // setInterval(function() {

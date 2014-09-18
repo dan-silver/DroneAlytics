@@ -3,7 +3,13 @@ extends layout
 block content
   div.overlay
   .container-fluid
-      img#latestImg
+      .row
+        .col-md-3
+          h2 "Live" Stream
+          img#latestImg
+        .col-md-9
+          div#faces
+            h2 Captured Faces
       .row
         .col-md-4.text-center
           h1 Gender Ratio
